@@ -1,22 +1,17 @@
-import sys
-input = sys.stdin.readline
+t = int(input())
+for _ in range(t):
+    n = int(input())
+    v = list(map(int, input().split()))
 
-def solve():
-    t = int(input())
-    for _ in range(t):
-        n = int(input())
-        a = list(map(int, input().split()))
-        max_diff = float('-inf')
-        
-        for l in range(n):
-            for r in range(l, n):
-                sub = a[l:r+1]
-                length = r - l + 1
-                for k in range(length):  
-                    rotated = sub[k:] + sub[:k]
-                    new_a = a[:l] + rotated + a[r+1:]
-                    max_diff = max(max_diff, new_a[-1] - new_a[0])
-        
-        print(max_diff)
+    answer = v[-1] - v[0]
 
-solve()
+    for i in range(1, n):
+        answer = max(answer, v[i] - v[0])
+
+    for i in range(n - 1):
+        answer = max(answer, v[-1] - v[i])
+
+    for i in range(n - 1):
+        answer = max(answer, v[i] - v[i + 1])
+
+    print(answer)
