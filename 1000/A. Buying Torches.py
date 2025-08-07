@@ -12,7 +12,7 @@ def solve():
         sticks_needed=k*y+k-1
         sticks_gained_per_trade=x-1
 
-        trades=ceil_devision(sticks_needed,sticks_gained_per_trade)+K
+        trades=ceil_devision(sticks_needed,sticks_gained_per_trade)+k
         print(trades)
 
 solve()
