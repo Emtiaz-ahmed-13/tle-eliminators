@@ -22,26 +22,38 @@ typedef map<ll, ll> mll;
 const int md = (int)1e9 + 7;
 
 void TC() {
-    // Your dish here
-    int n, k, s, t;
-    cin >> n >> k >> s >> t;
+    int n, k, a, b;
+    cin >> n >> k >> a >> b;
 
     vector<ll> x(n + 1), y(n + 1);
-
-    for (int i = 1; i <= n; i++) { 
+    for (int i = 1; i <= n; i++) {
         cin >> x[i] >> y[i];
     }
 
-    ll ans = abs(x[s] - x[t]) + abs(y[s] - y[t]);
-    ll mins = LLONG_MAX, mint = LLONG_MAX; 
+    // direct cost from a to b
+    ll ans = abs(x[a] - x[b]) + abs(y[a] - y[b]);
 
-    for (int i = 1; i <= k; i++) { // K
-        mins = min(mins, abs(x[s] - x[i]) + abs(y[s] - y[i]));
-        mint = min(mint, abs(x[t] - x[i]) + abs(y[t] - y[i]));
+    // if no major cities exist
+    if (k == 0) {
+        cout << ans << "\n";
+        return;
     }
 
+    ll mins = LLONG_MAX, mint = LLONG_MAX;
+
+    // minimum distance from a to any major city
+    // minimum distance from b to any major city
+    for (int i = 1; i <= k; i++) {
+        mins = min(mins, abs(x[a] - x[i]) + abs(y[a] - y[i]));
+        mint = min(mint, abs(x[b] - x[i]) + abs(y[b] - y[i]));
+    }
+
+    // if a or b is already a major city
+    if (a <= k) mins = 0;
+    if (b <= k) mint = 0;
+
     ans = min(ans, mins + mint);
-    cout << ans << endl;
+    cout << ans << "\n";
 }
 
 int main() {
