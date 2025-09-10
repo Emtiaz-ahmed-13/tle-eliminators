@@ -21,28 +21,18 @@ typedef map<ll, ll> mll;
 
 const int md = (int)1e9 + 7;
 
-void TC()
-{
-    // Your dish here
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    for (auto &i : a) cin >> i;
-    int ans = 0;
-    for (int i = 0; i < n; ++i) {
-        ans = __gcd(ans, abs(a[i] - a[n - i - 1]));
-    }
-    cout << ans << endl;
+void TC() {
+    int k, x;
+    if (!(cin >> k >> x)) return; 
+    ll ans = x;
+    for (int i = 0; i < k; i++) ans <<= 1; 
+    cout << ans << '\n';
 }
 
-int main()
-{
+int main() {
     FastIO;
-    int t = 1;
-    cin >> t;
-    for (int i = 1; i <= t; i++)
-    {
-        TC();
-    }
+    int t; 
+    cin >> t;            
+    while (t--) TC();    
     return 0;
 }
