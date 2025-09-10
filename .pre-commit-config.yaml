@@ -1,0 +1,14 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: ["--maxkb=100000"]
+  - repo: https://github.com/mxschmitt/forbid-new-files
+    rev: v1.0.0
+    hooks:
+      - id: forbid-new-files
+        args: ["--pattern", "\\.in$", "--message", ".in files are forbidden in this repo"]
