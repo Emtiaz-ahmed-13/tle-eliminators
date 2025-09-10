@@ -1,5 +1,66 @@
-./cph.DS_Store
-*.in
-*.in
-**/input.in
-**/output.in
+# ── Contest I/O ────────────────────────────────────────────────────────────────
+**/*.in
+**/*.out
+**/*.ans
+testdata/
+local/
+*.local
+
+# ── Compiled / Tool Outputs ───────────────────────────────────────────────────
+# Generic compiled
+*.o
+*.obj
+*.exe
+*.a
+*.so
+*.dll
+*.class
+*.jar
+*.d      # dep files (make/clang/gcc)
+*.pdb    # MSVC debug
+*.ilk
+*.lib
+
+# CMake / build systems
+build/
+dist/
+target/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+*.cmake
+compile_commands.json
+
+# Binaries from this repo
+bin/
+.out/
+.tmp/
+
+# ── IDEs & Editors ────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.iml
+.ccls-cache/
+.clangd/
+
+# ── OS junk ───────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Logs & Temp ───────────────────────────────────────────────────────────────
+*.log
+*.tmp
+*.swp
+*.swo
+*.bak
+
+# ── Python helpers (if you script) ────────────────────────────────────────────
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.env
+.python-version
