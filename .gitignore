@@ -1,3 +1,5 @@
 ./cph.DS_Store
 *.in
 *.in
+**/input.in
+**/output.in
