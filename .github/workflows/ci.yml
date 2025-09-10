@@ -1,0 +1,49 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-guards:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Ensure no *.in files are tracked
+        run: |
+          if git ls-files | grep -E '\.in$' ; then
+            echo "❌ .in files are not allowed in the repo."
+            exit 1
+          fi
+
+      - name: Check for large blobs in index (>100MB)
+        run: |
+          max=$((100*1024*1024))
+          git ls-files -s | awk '{print $3" "$4}' | while read -r obj path; do
+            size=$(git cat-file -s "$obj")
+            if [ "$size" -gt "$max" ]; then
+              echo "❌ $path is $size bytes (>100MB)."
+              exit 1
+            fi
+          done
+
+      - name: Install build deps
+        run: sudo apt-get update && sudo apt-get install -y build-essential
+
+      - name: Compile C++ sources (if present)
+        run: |
+          shopt -s nullglob
+          files=( $(git ls-files '*.cpp') )
+          if [ ${#files[@]} -gt 0 ]; then
+            mkdir -p bin
+            for f in "${files[@]}"; do
+              out="bin/$(basename "${f%.*}")"
+              g++ -std=c++17 -O2 -pipe -static -s "$f" -o "$out"
+              echo "Built $out"
+            done
+          else
+            echo "No .cpp files found; skipping compile."
+          fi
